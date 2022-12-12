@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineNews.PL", "OnlineNews.PL\OnlineNews.PL.csproj", "{7A7F6F7D-B8EC-4453-88EB-B459A7CDD6B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineNews.PL", "OnlineNews.PL\OnlineNews.PL.csproj", "{7A7F6F7D-B8EC-4453-88EB-B459A7CDD6B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineNews.DAL", "OnlineNews.DAL\OnlineNews.DAL.csproj", "{77B70616-3749-4FDE-881B-80FB7C38C8DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineNews.DAL", "OnlineNews.DAL\OnlineNews.DAL.csproj", "{77B70616-3749-4FDE-881B-80FB7C38C8DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineNews.Cons", "OnlineNews.Cons\OnlineNews.Cons.csproj", "{76FC3275-4BF6-45A6-B9C7-916E3CEBBBAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineNews.Cons", "OnlineNews.Cons\OnlineNews.Cons.csproj", "{76FC3275-4BF6-45A6-B9C7-916E3CEBBBAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineNews.BLL", "OnlineNews.BLL\OnlineNews.BLL.csproj", "{9642821E-1115-4519-8E64-7EEC148BD963}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{76FC3275-4BF6-45A6-B9C7-916E3CEBBBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76FC3275-4BF6-45A6-B9C7-916E3CEBBBAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76FC3275-4BF6-45A6-B9C7-916E3CEBBBAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9642821E-1115-4519-8E64-7EEC148BD963}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9642821E-1115-4519-8E64-7EEC148BD963}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9642821E-1115-4519-8E64-7EEC148BD963}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9642821E-1115-4519-8E64-7EEC148BD963}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
