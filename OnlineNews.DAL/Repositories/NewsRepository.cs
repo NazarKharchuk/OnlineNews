@@ -54,5 +54,14 @@ namespace OnlineNews.DAL.Repositories
         {
             news.Tags.Add(tag);
         }
+
+        public IEnumerable<Tag> GetTags(int id)
+        {
+            News news = db.News.Include(n => n.Tags).Where(t => t.NewsId == id).FirstOrDefault();
+
+            IEnumerable<Tag> tags = news.Tags;
+
+            return tags;
+        }
     }
 }

@@ -6,9 +6,8 @@ using OnlineNews.DAL.Entities;
 
 namespace OnlineNews.DAL.Interfaces
 {
-    public interface INewsRepository<News> : IRepository<News>
+    public interface ITagRepository<Tag> : IRepository<Tag>
     {
-        void AddTag(News news, Tag tag);
-        IEnumerable<Tag> GetTags(int id);
+        IEnumerable<News> GetNews(int id);
     }
 }

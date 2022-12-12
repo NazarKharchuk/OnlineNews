@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace OnlineNews.DAL.Repositories
 {
-    public class TagRepository : IRepository<Tag>
+    public class TagRepository : ITagRepository<Tag>
     {
         private NewsContext db;
 
@@ -48,6 +48,15 @@ namespace OnlineNews.DAL.Repositories
             Tag tag = db.Tags.Find(id);
             if (tag != null)
                 db.Tags.Remove(tag);
+        }
+
+        public IEnumerable<News> GetNews(int id)
+        {
+            Tag tag = db.Tags.Include(n => n.News).Where(t => t.TagId == id).FirstOrDefault();
+
+            IEnumerable<News> news = tag.News;
+            
+            return news;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace OnlineNews.DAL.Interfaces
     {
         IRepository<Rubric> Rubrics { get; }
         INewsRepository<News> News { get; }
-        IRepository<Tag> Tags { get; }
+        ITagRepository<Tag> Tags { get; }
         void Save();
     }
 }

@@ -40,7 +40,7 @@ namespace OnlineNews.DAL.Repositories
             }
         }
 
-        public IRepository<Tag> Tags
+        public ITagRepository<Tag> Tags
         {
             get
             {
