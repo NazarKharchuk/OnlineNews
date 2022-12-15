@@ -6,11 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
     <PackageReference Include="Ninject" Version="3.3.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OnlineNews.DAL\OnlineNews.DAL.csproj" />
+    <ProjectReference Include="..\OnlineNews.BLL\OnlineNews.BLL.csproj" />
   </ItemGroup>
 
 </Project>
