@@ -8,15 +8,35 @@ using OnlineNews.DAL.Interfaces;
 using OnlineNews.DAL.Entities;
 using AutoMapper;
 
+using Microsoft.EntityFrameworkCore;
+using Ninject.Modules;
+using OnlineNews.DAL.Context;
+using Ninject;
+
 namespace OnlineNews.BLL.Services
 {
     public class RubricService : IService<RubricDTO>
     {
         IUnitOfWork DataBase { get; set; }
 
-        public RubricService(IUnitOfWork uow)
+        /*public RubricService(IUnitOfWork uow)
         {
             DataBase = uow;
+        }*/
+
+        public RubricService()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<NewsContext>();
+
+            var options = optionsBuilder
+                    .UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=NewsDB;Trusted_Connection=True;")
+                    .Options;
+
+            NinjectModule serviceModule = new ServiceModule(options);
+
+            var kernel = new StandardKernel(serviceModule);
+
+            DataBase = kernel.Get<IUnitOfWork>();
         }
 
         public IEnumerable<RubricDTO> GetAll()

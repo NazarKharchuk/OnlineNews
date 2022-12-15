@@ -8,15 +8,35 @@ using OnlineNews.DAL.Interfaces;
 using OnlineNews.DAL.Entities;
 using AutoMapper;
 
+using Microsoft.EntityFrameworkCore;
+using Ninject.Modules;
+using OnlineNews.DAL.Context;
+using Ninject;
+
 namespace OnlineNews.BLL.Services
 {
     public class TagService : ITagService<TagDTO>
     {
         IUnitOfWork DataBase { get; set; }
 
-        public TagService(IUnitOfWork uow)
+        /*public TagService(IUnitOfWork uow)
         {
             DataBase = uow;
+        }*/
+
+        public TagService()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<NewsContext>();
+
+            var options = optionsBuilder
+                    .UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=NewsDB;Trusted_Connection=True;")
+                    .Options;
+
+            NinjectModule serviceModule = new ServiceModule(options);
+
+            var kernel = new StandardKernel(serviceModule);
+
+            DataBase = kernel.Get<IUnitOfWork>();
         }
 
         public IEnumerable<TagDTO> GetAll()

@@ -8,15 +8,35 @@ using OnlineNews.DAL.Interfaces;
 using OnlineNews.DAL.Entities;
 using AutoMapper;
 
+using Microsoft.EntityFrameworkCore;
+using Ninject.Modules;
+using OnlineNews.DAL.Context;
+using Ninject;
+
 namespace OnlineNews.BLL.Services
 {
     public class NewsService : INewsService<NewsDTO>
     {
         IUnitOfWork DataBase { get; set; }
 
-        public NewsService(IUnitOfWork uow)
+        /*public NewsService(IUnitOfWork uow)
         {
             DataBase = uow;
+        }*/
+
+        public NewsService()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<NewsContext>();
+
+            var options = optionsBuilder
+                    .UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=NewsDB;Trusted_Connection=True;")
+                    .Options;
+
+            NinjectModule serviceModule = new ServiceModule(options);
+
+            var kernel = new StandardKernel(serviceModule);
+
+            DataBase = kernel.Get<IUnitOfWork>();
         }
 
         public IEnumerable<NewsDTO> GetAll()
@@ -42,13 +62,24 @@ namespace OnlineNews.BLL.Services
                 throw new ValidationException("Empty News Content", "");
             if (item.Author == "")
                 throw new ValidationException("Empty News Author", "");
+            if (DataBase.Rubrics.Get(item.RubricId) == null)
+                throw new ValidationException("Invalid rubric", "");
 
-            DataBase.News.Create(new News { Title = item.Title, Content = item.Content, Author = item.Author, Date = item.Date});
+            DataBase.News.Create(new News { Title = item.Title, Content = item.Content, Author = item.Author, Date = item.Date, RubricId = item.RubricId});
             DataBase.Save();
         }
 
         public void Update(NewsDTO item)
         {
+            if (item.Title == "")
+                throw new ValidationException("Empty News Title", "");
+            if (item.Content == "")
+                throw new ValidationException("Empty News Content", "");
+            if (item.Author == "")
+                throw new ValidationException("Empty News Author", "");
+            if (DataBase.Rubrics.Get(item.RubricId) == null)
+                throw new ValidationException("Invalid rubric", "");
+
             News news = DataBase.News.Get(item.NewsId);
             if (news == null)
                 throw new ValidationException("News not found", "");

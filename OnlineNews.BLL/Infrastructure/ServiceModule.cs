@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Ninject.Modules;
+using OnlineNews.DAL.Context;
 using OnlineNews.DAL.Interfaces;
 using OnlineNews.DAL.Repositories;
 
@@ -9,16 +11,16 @@ namespace OnlineNews.BLL.Infrastructure
 {
     public class ServiceModule : NinjectModule
     {
-        private string connectionString;
+        private DbContextOptions<NewsContext> options;
 
-        public ServiceModule(string connection)
+        public ServiceModule(DbContextOptions<NewsContext> _options)
         {
-            connectionString = connection;
+            options = _options;
         }
 
         public override void Load()
         {
-            Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(connectionString);
+            Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(options);
         }
     }
 }
