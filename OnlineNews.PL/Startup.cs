@@ -7,10 +7,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using OnlineNews.BLL.DTO;
+using OnlineNews.BLL.Interfaces;
+using OnlineNews.BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OnlineNews.DAL.Context;
+using OnlineNews.DAL.Interfaces;
+using OnlineNews.DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace OnlineNews.PL
 {
@@ -28,6 +35,18 @@ namespace OnlineNews.PL
         {
             services.AddControllers();
 
+            services.AddScoped<IService<RubricDTO>, RubricService>();
+            services.AddScoped<ITagService<TagDTO>, TagService>();
+            services.AddScoped<INewsService<NewsDTO>, NewsService>();
+
+            var optionsBuilder = new DbContextOptionsBuilder<NewsContext>();
+
+            var options = optionsBuilder
+                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                    .Options;
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>(s => new UnitOfWork(options));
+
             services.AddSwaggerGen();
             services.AddSwaggerGen(c =>
             {
@@ -35,7 +54,7 @@ namespace OnlineNews.PL
                 {
                     Version = "v1",
                     Title = "Implement Swagger UI",
-                    Description = "A simple example to Implement Swagger UI",
+                    Description = "Online news with Swagger UI",
                 });
             });
         }

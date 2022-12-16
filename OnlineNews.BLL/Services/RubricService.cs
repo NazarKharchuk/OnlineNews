@@ -19,12 +19,12 @@ namespace OnlineNews.BLL.Services
     {
         IUnitOfWork DataBase { get; set; }
 
-        /*public RubricService(IUnitOfWork uow)
+        public RubricService(IUnitOfWork uow)
         {
             DataBase = uow;
-        }*/
+        }
 
-        public RubricService()
+        /*public RubricService()
         {
             var optionsBuilder = new DbContextOptionsBuilder<NewsContext>();
 
@@ -37,7 +37,7 @@ namespace OnlineNews.BLL.Services
             var kernel = new StandardKernel(serviceModule);
 
             DataBase = kernel.Get<IUnitOfWork>();
-        }
+        }*/
 
         public IEnumerable<RubricDTO> GetAll()
         {

@@ -22,19 +22,19 @@ namespace OnlineNews.PL.Controllers
     public class TagController : Controller
     {
         ITagService<TagDTO> tagService;
-        /*public TagController(IService<TagDTO> serv)
+        public TagController(ITagService<TagDTO> serv)
         {
             tagService = serv;
-        }*/
+        }
 
-        public TagController()
+        /*public TagController()
         {
             NinjectModule newsModule = new NewsModule();
 
             var kernel = new StandardKernel(newsModule);
 
             tagService = kernel.Get<ITagService<TagDTO>>();
-        }
+        }*/
 
         // GET: api/<TagController>
         [HttpGet]

@@ -21,19 +21,19 @@ namespace OnlineNews.PL.Controllers
     public class NewsController : Controller
     {
         INewsService<NewsDTO> newsService;
-        /*public NewsController(INewsService<NewsDTO> serv)
+        public NewsController(INewsService<NewsDTO> serv)
         {
             newsService = serv;
-        }*/
+        }
 
-        public NewsController()
+        /*public NewsController()
         {
             NinjectModule newsModule = new NewsModule();
 
             var kernel = new StandardKernel(newsModule);
 
             newsService = kernel.Get<INewsService<NewsDTO>>();
-        }
+        }*/
 
         // GET: api/<NewsController>
         [Route("api/news")]

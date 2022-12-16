@@ -24,19 +24,19 @@ namespace OnlineNews.PL.Controllers
     public class RubricController : ControllerBase
     {
         IService<RubricDTO> rubricService;
-        /*public RubricController(IService<RubricDTO> serv)
+        public RubricController(IService<RubricDTO> serv)
         {
             rubricService = serv;
-        }*/
+        }
 
-        public RubricController()
+        /*public RubricController()
         {
             NinjectModule newsModule = new NewsModule();
 
             var kernel = new StandardKernel(newsModule);
 
             rubricService = kernel.Get<IService<RubricDTO>>();
-        }
+        }*/
 
         // GET: api/<RubricController>
         [HttpGet]

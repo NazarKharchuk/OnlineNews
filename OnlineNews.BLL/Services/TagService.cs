@@ -19,12 +19,12 @@ namespace OnlineNews.BLL.Services
     {
         IUnitOfWork DataBase { get; set; }
 
-        /*public TagService(IUnitOfWork uow)
+        public TagService(IUnitOfWork uow)
         {
             DataBase = uow;
-        }*/
+        }
 
-        public TagService()
+        /*public TagService()
         {
             var optionsBuilder = new DbContextOptionsBuilder<NewsContext>();
 
@@ -37,7 +37,7 @@ namespace OnlineNews.BLL.Services
             var kernel = new StandardKernel(serviceModule);
 
             DataBase = kernel.Get<IUnitOfWork>();
-        }
+        }*/
 
         public IEnumerable<TagDTO> GetAll()
         {
