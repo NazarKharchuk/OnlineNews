@@ -17,7 +17,6 @@ using System.Net;
 
 namespace OnlineNews.PL.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class NewsController : Controller
     {
@@ -37,6 +36,7 @@ namespace OnlineNews.PL.Controllers
         }
 
         // GET: api/<NewsController>
+        [Route("api/news")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -44,8 +44,61 @@ namespace OnlineNews.PL.Controllers
             return new ObjectResult(mapper.Map<IEnumerable<NewsDTO>, List<NewsModel>>(newsService.GetAll()));
         }
 
+        // GET: api/<NewsController?author=value>
+        [Route("api/news/author")]
+        [HttpGet]
+        public IActionResult Get([FromQuery] string author)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<NewsDTO, NewsModel>()).CreateMapper();
+            return new ObjectResult(mapper.Map<IEnumerable<NewsDTO>, List<NewsModel>>(newsService.FindByAuthor(author)));
+        }
+
+        // GET: api/<NewsController?datestart=value1,datefinish=value2>
+        [Route("api/news/date")]
+        [HttpGet]
+        public IActionResult Get([FromQuery] DateTime datestart, [FromQuery] DateTime datefinish)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<NewsDTO, NewsModel>()).CreateMapper();
+            return new ObjectResult(mapper.Map<IEnumerable<NewsDTO>, List<NewsModel>>(newsService.FindByDate(datestart, datefinish)));
+        }
+
+        // GET: api/<NewsController?rubric=value>
+        [Route("api/news/rubric")]
+        [HttpGet]
+        public IActionResult Get([FromQuery] RubricDTO rubric)
+        {
+            try
+            {
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<NewsDTO, NewsModel>()).CreateMapper();
+                return new ObjectResult(mapper.Map<IEnumerable<NewsDTO>,
+                    List<NewsModel>>(newsService.FindByRubric(new RubricDTO() { RubricId = rubric.RubricId, RubricName = rubric.RubricName })));
+            }
+            catch (ValidationException ex)
+            {
+                return StatusCode(404, ex.Message);
+            }
+        }
+
+        // GET: api/<NewsController?tag=value>
+        [Route("api/news/tag")]
+        [HttpGet]
+        public IActionResult Get([FromQuery] TagDTO tag)
+        {
+            try
+            {
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<NewsDTO, NewsModel>()).CreateMapper();
+                return new ObjectResult(mapper.Map<IEnumerable<NewsDTO>,
+                    List<NewsModel>>(newsService.FindByTag(new TagDTO() { TagId = tag.TagId, TagName = tag.TagName })));
+            }
+            catch (ValidationException ex)
+            {
+                return StatusCode(404, ex.Message);
+            }
+        }
+
         // GET api/<NewsController>/5
-        [HttpGet("{id}")]
+        [Route("api/news/{id}")]
+        [HttpGet]
         public IActionResult Get(int id)
         {
             try
@@ -62,6 +115,7 @@ namespace OnlineNews.PL.Controllers
         }
 
         // POST api/<NewsController>
+        [Route("api/news")]
         [HttpPost]
         public IActionResult Post([FromBody] NewsModel item)
         {
@@ -78,7 +132,8 @@ namespace OnlineNews.PL.Controllers
         }
 
         // PUT api/<NewsController>/5
-        [HttpPut("{id}")]
+        [Route("api/news/{id}")]
+        [HttpPut]
         public IActionResult Put(int id, [FromBody] NewsModel item)
         {
             if (id != item.RubricId)
@@ -99,7 +154,8 @@ namespace OnlineNews.PL.Controllers
         }
 
         // DELETE api/<NewsController>/5
-        [HttpDelete("{id}")]
+        [Route("api/news/{id}")]
+        [HttpDelete]
         public IActionResult Delete(int id)
         {
             try
@@ -113,6 +169,34 @@ namespace OnlineNews.PL.Controllers
 
             newsService.Delete(id);
             return NoContent();
+        }
+
+        // GET api/<NewsController>/5/tag
+        [Route("api/news/{newsId}/tags")]
+        [HttpGet]
+        public IActionResult GetTagsByNews(int newsId)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TagDTO, TagModel>()).CreateMapper();
+            return new ObjectResult(mapper.Map<IEnumerable<TagDTO>, List<TagModel>>(newsService.GetTags(newsId)));
+        }
+
+        // GET api/<NewsController>/5/tag
+        [Route("api/news/{newsId}/tags")]
+        [HttpPost]
+        public IActionResult AddTag(int newsId, [FromBody] TagModel item)
+        {
+            try
+            {
+                var news = newsService.Get(newsId);
+
+                newsService.AddTag(news, new TagDTO() { TagId = item.TagId, TagName = item.TagName });
+
+                return StatusCode(201);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
         }
 
         private static NewsModel ItemFromDTO(NewsDTO item) =>
