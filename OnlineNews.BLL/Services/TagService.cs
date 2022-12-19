@@ -64,7 +64,7 @@ namespace OnlineNews.BLL.Services
 
         public void Update(TagDTO item)
         {
-            Tag tag = DataBase.Tags.Get(item.TagId);
+            var tag = DataBase.Tags.Get(item.TagId);
             if (tag == null)
                 throw new ValidationException("Tag not found", "");
             tag.TagName = item.TagName;
@@ -80,6 +80,9 @@ namespace OnlineNews.BLL.Services
 
         public IEnumerable<NewsDTO> GetNews(int id)
         {
+            var tag = DataBase.Tags.Get(id);
+            if (tag == null)
+                throw new ValidationException("Tag not found", "");
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<News, NewsDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<News>, List<NewsDTO>>(DataBase.Tags.GetNews(id));
         }

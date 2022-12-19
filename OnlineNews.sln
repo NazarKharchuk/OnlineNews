@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineNews.DAL", "OnlineNew
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineNews.Cons", "OnlineNews.Cons\OnlineNews.Cons.csproj", "{76FC3275-4BF6-45A6-B9C7-916E3CEBBBAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineNews.BLL", "OnlineNews.BLL\OnlineNews.BLL.csproj", "{9642821E-1115-4519-8E64-7EEC148BD963}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineNews.BLL", "OnlineNews.BLL\OnlineNews.BLL.csproj", "{9642821E-1115-4519-8E64-7EEC148BD963}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineNews.BLL.Test", "OnlineNews.BLL.Test\OnlineNews.BLL.Test.csproj", "{ECC46F3C-7F6C-4BCF-A882-45856F29AB8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9642821E-1115-4519-8E64-7EEC148BD963}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9642821E-1115-4519-8E64-7EEC148BD963}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9642821E-1115-4519-8E64-7EEC148BD963}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECC46F3C-7F6C-4BCF-A882-45856F29AB8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECC46F3C-7F6C-4BCF-A882-45856F29AB8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECC46F3C-7F6C-4BCF-A882-45856F29AB8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECC46F3C-7F6C-4BCF-A882-45856F29AB8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

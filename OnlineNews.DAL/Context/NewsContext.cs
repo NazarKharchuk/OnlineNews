@@ -15,7 +15,7 @@ namespace OnlineNews.DAL.Context
         public NewsContext(DbContextOptions<NewsContext> options) 
             :base(options) 
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
         /*public NewsContext()
         {

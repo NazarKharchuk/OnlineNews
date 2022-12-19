@@ -100,9 +100,9 @@ namespace OnlineNews.BLL.Services
 
         public IEnumerable<TagDTO> GetTags(int id)
         {
-            var t = DataBase.Tags.Get(id);
-            if (t == null)
-                throw new ValidationException("Tag not found", "");
+            var n = DataBase.News.Get(id);
+            if (n == null)
+                throw new ValidationException("News not found", "");
 
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Tag, TagDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<Tag>, List<TagDTO>>(DataBase.News.GetTags(id));
